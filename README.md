@@ -2,6 +2,35 @@
 
 A simple, accessible Todo application with dark mode support.
 
+## How to Create a Draft Pull Request on GitHub
+
+A **draft pull request** signals that the work is still in progress and is not yet ready for review or merge.
+
+### Option 1: Via the GitHub Web UI
+
+1. Navigate to the repository on GitHub.
+2. Click the **Pull requests** tab, then click **New pull request**.
+3. Select the base and compare branches.
+4. Instead of clicking **Create pull request**, click the **dropdown arrow** next to the button.
+5. Select **Create draft pull request**.
+6. Fill in the title and description, then click **Create draft pull request** to confirm.
+
+### Option 2: Via the GitHub CLI
+
+```bash
+# Create a draft pull request
+gh pr create --draft
+
+# Create a draft pull request with a title and body
+gh pr create --draft --title "My work in progress" --body "Still working on this."
+```
+
+### Converting a Draft to Ready for Review
+
+Once your work is complete, open the pull request on GitHub and click **Ready for review** at the bottom of the page. This allows reviewers to start their review and enables the PR to be merged.
+
+---
+
 ## How to Accept (Merge) a Pull Request on GitHub
 
 Follow these steps to accept and merge a pull request:
