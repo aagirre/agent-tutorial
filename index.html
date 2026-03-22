@@ -4,25 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙 Dark</button>
     <main class="app">
-      <h1>Todo App</h1>
+      <header class="app-header">
+        <h1>My Tasks</h1>
+        <p class="app-subtitle">Stay organised and get things done</p>
+      </header>
 
       <form id="todo-form" class="todo-form" autocomplete="off">
         <label for="todo-input" class="sr-only">Add a todo</label>
         <input
           id="todo-input"
           type="text"
-          placeholder="Add a new todo"
+          placeholder="What needs to be done?"
           aria-label="Todo text"
           required
         />
-        <button type="submit">Add</button>
+        <button type="submit">
+          <span class="btn-icon" aria-hidden="true">+</span>
+          Add
+        </button>
       </form>
 
+      <div id="stats" class="stats hidden">
+        <span id="stats-remaining" class="stats-remaining"></span>
+        <span id="stats-completed" class="stats-completed"></span>
+      </div>
+
+      <p id="empty-state" class="empty-state">No tasks yet — add one above!</p>
       <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
     </main>
 
