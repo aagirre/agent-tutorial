@@ -2,6 +2,10 @@ const todoForm = document.getElementById("todo-form");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
 const themeToggle = document.getElementById("theme-toggle");
+const emptyState = document.getElementById("empty-state");
+const statsEl = document.getElementById("stats");
+const statsRemaining = document.getElementById("stats-remaining");
+const statsCompleted = document.getElementById("stats-completed");
 
 // Apply saved theme preference on load
 const savedTheme = localStorage.getItem("theme");
@@ -16,6 +20,23 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 });
 
+function updateStats() {
+  const items = todoList.querySelectorAll(".todo-item");
+  const total = items.length;
+  const completed = todoList.querySelectorAll(".todo-item.completed").length;
+  const remaining = total - completed;
+
+  if (total === 0) {
+    emptyState.classList.remove("hidden");
+    statsEl.classList.add("hidden");
+  } else {
+    emptyState.classList.add("hidden");
+    statsEl.classList.remove("hidden");
+    statsRemaining.textContent = `${remaining} remaining`;
+    statsCompleted.textContent = `${completed} done`;
+  }
+}
+
 function createTodoItem(text) {
   const listItem = document.createElement("li");
   listItem.className = "todo-item";
@@ -25,6 +46,7 @@ function createTodoItem(text) {
   todoText.title = "Click to toggle complete";
   todoText.addEventListener("click", () => {
     listItem.classList.toggle("completed");
+    updateStats();
   });
 
   const deleteButton = document.createElement("button");
@@ -32,7 +54,11 @@ function createTodoItem(text) {
   deleteButton.className = "delete-btn";
   deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", () => {
-    listItem.remove();
+    listItem.classList.add("removing");
+    listItem.addEventListener("animationend", () => {
+      listItem.remove();
+      updateStats();
+    }, { once: true });
   });
 
   listItem.append(todoText, deleteButton);
@@ -51,4 +77,8 @@ todoForm.addEventListener("submit", (event) => {
   todoList.appendChild(todoItem);
   todoInput.value = "";
   todoInput.focus();
+  updateStats();
 });
+
+// Initialise empty state on load
+updateStats();
